@@ -3,14 +3,18 @@ import mongoose from "mongoose";
 import Hello from "./Hello.js"
 import Lab5 from './Lab5.js'
 import cors from "cors";
-import CourseRoutes from './Kanbas/courses/routes.js';
+import CourseRoutes from './Kanbas/Database/Courses/routes.js';
 import UserRoutes from './Kanbas/Database/Users/routes.js';
 import ModuleRoutes from './Kanbas/Modules/routes.js';
 import "dotenv/config";
 import session from 'express-session';
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas'
+// const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/kanbas'
+mongoose.connect(CONNECTION_STRING, { dbName: "kanbas"});
+console.log(CONNECTION_STRING)
 const app = express();
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,
